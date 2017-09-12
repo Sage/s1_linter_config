@@ -2,6 +2,9 @@
 # See https://github.com/robkilby/styleguides for original.
 # If a cop is not referenced here, the defaults from Rubocop will be used.
 
+inherit_from:
+  - '.rubocop_local_overrides.yml'
+
 AllCops:
   Exclude:
     - '**/db/**/*'
