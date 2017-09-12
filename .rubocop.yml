@@ -213,7 +213,7 @@ Style/WhileUntilModifier:
 # EnforcedColonStyle: key - left alignment of keys.
 #   a: 0
 #   bb: 1
-Layout/AlignHash:
+Style/AlignHash:
   EnforcedHashRocketStyle: key
   EnforcedColonStyle: key
 
@@ -224,7 +224,7 @@ Layout/AlignHash:
 #
 #     method_call(a,
 #       b)
-Layout/AlignParameters:
+Style/AlignParameters:
   EnforcedStyle: with_fixed_indentation
 
 # Checks how the whens of a case expression are indented in relation to its end keyword.
@@ -246,23 +246,23 @@ Layout/AlignParameters:
 # else
 #   'Jazz'
 # end
-Layout/CaseIndentation:
+Style/CaseIndentation:
   EnforcedStyle: end
 
 # Checks for a line break before the first element in a multi-line array.
-Layout/FirstArrayElementLineBreak:
+Style/FirstArrayElementLineBreak:
   Enabled: true
 
 # Checks for a line break before the first element in a multi-line hash.
-Layout/FirstHashElementLineBreak:
+Style/FirstHashElementLineBreak:
   Enabled: true
 
 # Checks for a line break before the first argument in a multi-line method call.
-Layout/FirstMethodArgumentLineBreak:
+Style/FirstMethodArgumentLineBreak:
   Enabled: true
 
 # Checks for a line break before the first parameter in a multi-line method parameter definition.
-Layout/FirstMethodParameterLineBreak:
+Style/FirstMethodParameterLineBreak:
   Enabled: true
 
 # Checks the indentation of the first element in an array literal.
@@ -276,7 +276,7 @@ Layout/FirstMethodParameterLineBreak:
 # and_in_a_method_call([
 #   :no_difference
 # ])
-Layout/IndentArray:
+Style/IndentArray:
   EnforcedStyle: consistent
 
 # Checks the indentation of the first key in a hash literal.
@@ -290,7 +290,7 @@ Layout/IndentArray:
 # and_in_a_method_call({
 #   no: :difference
 # })
-Layout/IndentHash:
+Style/IndentHash:
   EnforcedStyle: consistent
 
 # Checks that multiline assignments do not have a newline after the assignment operator.
@@ -300,7 +300,7 @@ Layout/IndentHash:
 # foo = if expression
 #   'bar'
 # end
-Layout/MultilineAssignmentLayout:
+Style/MultilineAssignmentLayout:
   Enabled: true
   EnforcedStyle: same_line
 
@@ -311,7 +311,7 @@ Layout/MultilineAssignmentLayout:
 # Thing.a
 #   .b
 #   .c
-Layout/MultilineMethodCallIndentation:
+Style/MultilineMethodCallIndentation:
   EnforcedStyle: indented
 
 # Checks the indentation of the right hand side operand in binary operations that span more than one line.
@@ -322,7 +322,7 @@ Layout/MultilineMethodCallIndentation:
 #     b
 #   something
 # end
-Layout/MultilineOperationIndentation:
+Style/MultilineOperationIndentation:
   EnforcedStyle: indented
 
 #################### Metrics ################################
