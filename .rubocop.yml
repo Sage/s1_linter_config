@@ -97,13 +97,6 @@ Style/EmptyMethod:
   Exclude:
     - '**/spec/**/*'
 
-# Checks whether the source file has a utf-8 encoding comment or not.
-#
-# EnforcedStyle: when_needed - checks the contents of the file before issuing an error.
-Style/Encoding:
-  Enabled: true
-  EnforcedStyle: when_needed
-
 # Checks for if and unless statements that would fit on one line if written as a modifier if/unless.
 #
 # Triggers an warning for if/unless statements that would be under 120 characters.
@@ -180,20 +173,6 @@ Style/SymbolArray:
 # foo = (bar && baz) ? a : b
 Style/TernaryParentheses:
   EnforcedStyle: require_parentheses_when_complex
-
-# Checks that all numbered variables use the configured style for their numbering.
-#
-# EnforcedStyle: snake_case
-#
-# # bad
-#
-# variable1 = 1
-#
-# # good
-#
-# variable_1 = 1
-Style/VariableNumber:
-  EnforcedStyle: snake_case
 
 # Checks for while and until statements that would fit on one line if written as a modifier while/until.
 Style/WhileUntilModifier:
@@ -321,6 +300,22 @@ Layout/MultilineMethodCallIndentation:
 # end
 Layout/MultilineOperationIndentation:
   EnforcedStyle: indented
+
+#################### Naming ##########################
+
+# Checks that all numbered variables use the configured style for their numbering.
+#
+# EnforcedStyle: snake_case
+#
+# # bad
+#
+# variable1 = 1
+#
+# # good
+#
+# variable_1 = 1
+Naming/VariableNumber:
+  EnforcedStyle: snake_case
 
 #################### Metrics ################################
 
