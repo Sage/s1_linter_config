@@ -1,5 +1,4 @@
-# Up to date as of v0.49.1
-# See https://github.com/robkilby/styleguides for original.
+# Up to date as of v0.54.0
 # If a cop is not referenced here, the defaults from Rubocop will be used.
 
 AllCops:
@@ -8,7 +7,6 @@ AllCops:
     - '**/tmp/**/*'
     - '**/vendor/**/*'
     - '**/script/**/*'
-  DisplayCopNames: true
   DisplayStyleGuide: true
   ExtraDetails: true
   UseCache: true
@@ -214,6 +212,16 @@ Layout/AlignParameters:
 # end
 Layout/CaseIndentation:
   EnforcedStyle: end
+  
+# Checks whether the end keywords are aligned properly.
+#
+# AlignWith: variable - in assignments, `end` should be aligned with the start of the variable on the left hand side of
+# `=`. In all other situations, `end` should still be aligned with the keyword.
+#
+# variable = if true
+# end
+Layout/EndAlignment:
+  EnforcedStyleAlignWith: variable
 
 # Checks for a line break before the first element in a multi-line array.
 Layout/FirstArrayElementLineBreak:
@@ -368,21 +376,6 @@ Metrics/PerceivedComplexity:
 # Checks for assignments in the conditions of if/while/until.
 Lint/AssignmentInCondition:
   AllowSafeAssignment: false
-
-# Checks whether the end keywords of method definitions are aligned properly.
-Lint/DefEndAlignment:
-  AutoCorrect: true
-
-# Checks whether the end keywords are aligned properly.
-#
-# AlignWith: variable - in assignments, `end` should be aligned with the start of the variable on the left hand side of
-# `=`. In all other situations, `end` should still be aligned with the keyword.
-#
-# variable = if true
-# end
-Lint/EndAlignment:
-  EnforcedStyleAlignWith: variable
-  AutoCorrect: true
 
 # Checks for interpolated literals.
 #
