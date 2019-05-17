@@ -250,7 +250,7 @@ Layout/FirstMethodParameterLineBreak:
 # and_in_a_method_call([
 #   :no_difference
 # ])
-Layout/IndentArray:
+Layout/IndentFirstArrayElement:
   EnforcedStyle: consistent
 
 # Checks the indentation of the first key in a hash literal.
@@ -264,7 +264,7 @@ Layout/IndentArray:
 # and_in_a_method_call({
 #   no: :difference
 # })
-Layout/IndentHash:
+Layout/IndentFirstHashElement:
   EnforcedStyle: consistent
 
 # Checks that multiline assignments do not have a newline after the assignment operator.
