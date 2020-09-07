@@ -11,7 +11,7 @@ AllCops:
   ExtraDetails: true
   UseCache: true
   MaxFilesInCache: 50000
-  TargetRubyVersion: 2.3
+  TargetRubyVersion: 2.4
   TargetRailsVersion: 4.2
 
 # Always use alias_method when aliasing methods of modules, classes, or singleton classes at runtime, as the lexical
