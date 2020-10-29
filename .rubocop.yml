@@ -11,7 +11,7 @@ AllCops:
   ExtraDetails: true
   UseCache: true
   MaxFilesInCache: 50000
-  TargetRubyVersion: 2.3
+  TargetRubyVersion: 2.5
   TargetRailsVersion: 4.2
 
 # Always use alias_method when aliasing methods of modules, classes, or singleton classes at runtime, as the lexical
@@ -177,7 +177,7 @@ Style/TernaryParentheses:
 # EnforcedColonStyle: key - left alignment of keys.
 #   a: 0
 #   bb: 1
-Layout/AlignHash:
+Layout/HashAlignment:
   EnforcedHashRocketStyle: key
   EnforcedColonStyle: key
 
@@ -188,7 +188,7 @@ Layout/AlignHash:
 #
 #     method_call(a,
 #       b)
-Layout/AlignParameters:
+Layout/ParameterAlignment:
   EnforcedStyle: with_fixed_indentation
 
 # Checks how the whens of a case expression are indented in relation to its end keyword.
@@ -212,7 +212,7 @@ Layout/AlignParameters:
 # end
 Layout/CaseIndentation:
   EnforcedStyle: end
-  
+
 # Checks whether the end keywords are aligned properly.
 #
 # AlignWith: variable - in assignments, `end` should be aligned with the start of the variable on the left hand side of
@@ -250,7 +250,7 @@ Layout/FirstMethodParameterLineBreak:
 # and_in_a_method_call([
 #   :no_difference
 # ])
-Layout/IndentFirstArrayElement:
+Layout/FirstArrayElementIndentation:
   EnforcedStyle: consistent
 
 # Checks the indentation of the first key in a hash literal.
@@ -264,7 +264,7 @@ Layout/IndentFirstArrayElement:
 # and_in_a_method_call({
 #   no: :difference
 # })
-Layout/IndentFirstHashElement:
+Layout/FirstHashElementIndentation:
   EnforcedStyle: consistent
 
 # Checks that multiline assignments do not have a newline after the assignment operator.
@@ -345,7 +345,7 @@ Metrics/CyclomaticComplexity:
   Max: 10
 
 # Checks the length of lines in the source code.
-Metrics/LineLength:
+Layout/LineLength:
   Max: 120
   Exclude:
     - '**/routes.rb'
