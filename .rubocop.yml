@@ -382,3 +382,1032 @@ Lint/AssignmentInCondition:
 # "result is #{10}"
 Lint/LiteralInInterpolation:
   AutoCorrect: true
+
+# This cop checks whether the end keyword of begin is aligned properly.
+#
+# bad
+# foo ||= begin
+#           do_something
+#         end
+#
+# good
+# foo ||= begin
+#   do_something
+# end
+Layout/BeginEndAlignment: # (new in 0.91)
+  Enabled: true
+
+# Checks for a newline after an attribute accessor or a group of them.
+# alias syntax and alias_method, public, protected, and private methods
+# are allowed by default. These are customizable with AllowAliasSyntax and
+# AllowedMethods options.
+#
+# bad
+# attr_accessor :foo
+# def do_something
+# end
+#
+# good
+# attr_accessor :foo
+#
+# def do_something
+# end
+
+Layout/EmptyLinesAroundAttributeAccessor: # (new in 0.83)
+  Enabled: true
+
+# Checks method call operators to not have spaces around them.
+#
+# bad
+# foo. bar
+# foo .bar
+# foo . bar
+# foo. bar .buzz
+# foo
+#   . bar
+#   . buzz
+# foo&. bar
+# foo &.bar
+# foo &. bar
+# foo &. bar&. buzz
+# RuboCop:: Cop
+# RuboCop:: Cop:: Cop
+# :: RuboCop::Cop
+#
+# good
+# foo.bar
+# foo.bar.buzz
+# foo
+#   .bar
+#   .buzz
+# foo&.bar
+# foo&.bar&.buzz
+# RuboCop::Cop
+# RuboCop::Cop::Cop
+# ::RuboCop::Cop
+
+Layout/SpaceAroundMethodCallOperator: # (new in 0.82)
+  Enabled: true
+
+# This cop checks for places where binary operator has identical operands.
+# It covers arithmetic operators: +, -, , /, %, *; comparison operators: ==,
+# ===, =~, >, >=, <, ⇐; bitwise operators: |, ^, &, <<, >>;
+# boolean operators: &&, || and "spaceship" operator - <⇒.
+
+# Lint/BinaryOperatorWithIdenticalOperands: # (new in 0.89)
+#   Enabled: true
+
+# Do not define constants within a block, since the block’s scope does not
+# isolate or namespace the constant in any way.
+
+# bad
+# task :lint do
+#   FILES_TO_LINT = Dir['lib/*.rb']
+# end
+#
+# # bad
+# describe 'making a request' do
+#   class TestRequest; end
+# end
+#
+# # bad
+# module M
+#   extend ActiveSupport::Concern
+#   included do
+#     LIST = []
+#   end
+# end
+#
+# # good
+# task :lint do
+#   files_to_lint = Dir['lib/*.rb']
+# end
+#
+# # good
+# describe 'making a request' do
+#   let(:test_request) { Class.new }
+#   # see also `stub_const` for RSpec
+# end
+#
+# # good
+# module M
+#   extend ActiveSupport::Concern
+#   included do
+#     const_set(:LIST, [])
+#   end
+# end
+Lint/ConstantDefinitionInBlock: # (new in 0.91)
+  Enabled: true
+
+# Algorithmic constants for OpenSSL::Cipher and OpenSSL::Digest deprecated
+# since OpenSSL version 2.2.0. Prefer passing a string instead.
+
+# Example for OpenSSL::Cipher instantiation.
+
+# # bad
+# OpenSSL::Cipher::AES.new(128, :GCM)
+#
+# # good
+# OpenSSL::Cipher.new('aes-128-gcm')
+
+Lint/DeprecatedOpenSSLConstant: # (new in 0.84)
+  Enabled: true
+
+# This cop checks that there are no repeated conditions used in if 'elsif'.
+#
+# # bad
+# if x == 1
+#   do_something
+# elsif x == 1
+#   do_something_else
+# end
+#
+# # good
+# if x == 1
+#   do_something
+# elsif x == 2
+#   do_something_else
+# end
+Lint/DuplicateElsifCondition: # (new in 0.88)
+  Enabled: true
+
+# This cop checks for duplicate `require`s and `require_relative`s.
+#
+# # bad
+# require 'foo'
+# require 'bar'
+# require 'foo'
+#
+# # good
+# require 'foo'
+# require 'bar'
+#
+# # good
+# require 'foo'
+# require_relative 'foo'
+Lint/DuplicateRequire: # (new in 0.90)
+  Enabled: true
+
+# This cop checks that there are no repeated exceptions used in 'rescue' expressions.
+#
+# # bad
+# begin
+#   something
+# rescue FirstException
+#   handle_exception
+# rescue FirstException
+#   handle_other_exception
+# end
+#
+# # good
+# begin
+#   something
+# rescue FirstException
+#   handle_exception
+# rescue SecondException
+#   handle_other_exception
+# end
+Lint/DuplicateRescueException: # (new in 0.89)
+  Enabled: true
+
+# This cop checks for the presence of if, elsif and unless branches without
+# a body.
+#
+# # bad
+# if condition
+# end
+#
+# # bad
+# unless condition
+# end
+#
+# # bad
+# if condition
+#   do_something
+# elsif other_condition
+# end
+#
+# # good
+# if condition
+#   do_something
+# end
+#
+# # good
+# unless condition
+#   do_something
+# end
+#
+# # good
+# if condition
+#   do_something
+# elsif other_condition
+#   do_something_else
+# end
+Lint/EmptyConditionalBody: # (new in 0.89)
+  Enabled: true
+
+# This cop enforces that Ruby source files are not empty.
+#
+# bad
+# Empty file
+
+# good
+# File containing non commented source lines
+Lint/EmptyFile: # (new in 0.90)
+  Enabled: true
+
+# This cop checks for the presence of precise comparison of floating point numbers.
+# # bad
+# x == 0.1
+# x != 0.1
+#
+# # good - using BigDecimal
+# x.to_d == 0.1.to_d
+#
+# # good
+# (x - 0.1).abs < Float::EPSILON
+#
+# # good
+# tolerance = 0.0001
+# (x - 0.1).abs < tolerance
+Lint/FloatComparison: # (new in 0.89)
+  Enabled: true
+
+# Prefer equal? over == when comparing object_id.
+# # bad
+# foo.object_id == bar.object_id
+#
+# # good
+# foo.equal?(bar)
+Lint/IdentityComparison: # (new in 0.91)
+  Enabled: true
+
+# This cop checks for the presence of constructors and lifecycle callbacks
+# without calls to super.
+#
+# # bad
+# class Employee < Person
+#   def initialize(name, salary)
+#     @salary = salary
+#   end
+# end
+#
+# # good
+# class Employee < Person
+#   def initialize(name, salary)
+#     super(name)
+#     @salary = salary
+#   end
+# end
+#
+# # bad
+# class Parent
+#   def self.inherited(base)
+#     do_something
+#   end
+# end
+#
+# # good
+# class Parent
+#   def self.inherited(base)
+#     super
+#     do_something
+#   end
+# end
+Lint/MissingSuper: # (new in 0.89)
+  Enabled: true
+
+# Do not mix named captures and numbered captures in a Regexp literal because
+# numbered capture is ignored if they’re mixed. Replace numbered captures with
+# non-capturing groupings or named captures.
+#
+# # bad
+# /(?<foo>FOO)(BAR)/
+# # good
+# /(?<foo>FOO)(?<bar>BAR)/
+# # good
+# /(?<foo>FOO)(?:BAR)/
+# # good
+# /(FOO)(BAR)/
+Lint/MixedRegexpCaptureTypes: # (new in 0.85)
+  Enabled: true
+
+# This cops looks for references of Regexp captures that are out of range and
+# thus always returns nil.
+#
+# /(foo)bar/ =~ 'foobar'
+#
+# # bad - always returns nil
+#
+# puts $2 # => nil
+#
+# # good
+#
+# puts $1 # => foo
+Lint/OutOfRangeRegexpRef: # (new in 0.89)
+  Enabled: true
+
+# This cop checks for raise or fail statements which are raising Exception class.
+# # bad
+# raise Exception, 'Error message here'
+#
+# # good
+# raise StandardError, 'Error message here'
+Lint/RaiseException: # (new in 0.81)
+  Enabled: true
+
+# This cop checks for self-assignments.
+# # bad
+# foo = foo
+# foo, bar = foo, bar
+# Foo = Foo
+#
+# # good
+# foo = bar
+# foo, bar = bar, foo
+# Foo = Bar
+Lint/SelfAssignment: # (new in 0.89)
+  Enabled: true
+
+# This cop checks unexpected overrides of the Struct built-in methods via Struct.new.
+# # bad
+# Bad = Struct.new(:members, :clone, :count)
+# b = Bad.new([], true, 1)
+# b.members #=> [] (overriding `Struct#members`)
+# b.clone #=> true (overriding `Object#clone`)
+# b.count #=> 1 (overriding `Enumerable#count`)
+#
+# # good
+# Good = Struct.new(:id, :name)
+# g = Good.new(1, "foo")
+# g.members #=> [:id, :name]
+# g.clone #=> #<struct Good id=1, name="foo">
+# g.count #=> 2
+Lint/StructNewOverride: # (new in 0.81)
+  Enabled: true
+
+# This cop checks for top level return with arguments. If there is a top-level
+# return statement with an argument, then the argument is always ignored. This
+# is detected automatically since Ruby 2.7.
+#
+# # Detected since Ruby 2.7
+# return 1 # 1 is always ignored.
+Lint/TopLevelReturnWithArgument: # (new in 0.89)
+  Enabled: true
+
+# This cop checks for trailing commas in attribute declarations, such
+# as #attr_reader. Leaving a trailing comma will nullify the next method
+# definition by overriding it with a getter method.
+#
+# # bad
+# class Foo
+#   attr_reader :foo,
+#
+#   def bar
+#     puts "Unreachable."
+#   end
+# end
+#
+# # good
+# class Foo
+#   attr_reader :foo
+#
+#   def bar
+#     puts "No problem!"
+#   end
+# end
+Lint/TrailingCommaInAttributeDeclaration: # (new in 0.90)
+  Enabled: true
+
+# This cop checks for loops that will have at most one iteration.
+# A loop that can never reach the second iteration is a possible error in the
+# code. In rare cases where only one iteration (or at most one iteration) is
+# intended behavior, the code should be refactored to use if conditionals.
+#
+# # bad
+# while node
+#   do_something(node)
+#   node = node.parent
+#   break
+# end
+#
+# # good
+# while node
+#   do_something(node)
+#   node = node.parent
+# end
+#
+# # bad
+# def verify_list(head)
+#   item = head
+#   begin
+#     if verify(item)
+#       return true
+#     else
+#       return false
+#     end
+#   end while(item)
+# end
+#
+# # good
+# def verify_list(head)
+#   item = head
+#   begin
+#     if verify(item)
+#       item = item.next
+#     else
+#       return false
+#     end
+#   end while(item)
+#
+#   true
+# end
+#
+# # bad
+# def find_something(items)
+#   items.each do |item|
+#     if something?(item)
+#       return item
+#     else
+#       raise NotFoundError
+#     end
+#   end
+# end
+#
+# # good
+# def find_something(items)
+#   items.each do |item|
+#     if something?(item)
+#       return item
+#     end
+#   end
+#   raise NotFoundError
+# end
+Lint/UnreachableLoop: # (new in 0.89)
+  Enabled: true
+
+# This cop checks for useless method definitions, specifically: empty
+# constructors and methods just delegating to super.
+#
+# This cop is marked as unsafe as it can trigger false positives for cases
+# when an empty constructor just overrides the parent constructor, which is
+# bad anyway.
+#
+# # bad
+# def initialize
+#   super
+# end
+#
+# def method
+#   super
+# end
+#
+# # good - with default arguments
+# def initialize(x = Object.new)
+#   super
+# end
+#
+# # good
+# def initialize
+#   super
+#   initialize_internals
+# end
+#
+# def method(*args)
+#   super(:extra_arg, *args)
+# end
+Lint/UselessMethodDefinition: # (new in 0.90)
+  Enabled: true
+
+# This cop checks for uses of Integer#times that will never yield (when the
+# integer ⇐ 0) or that will only ever yield once (1.times).
+#
+# This cop is marked as unsafe as times returns its receiver, which is usually
+# OK, but might change behavior.
+#
+# # bad
+# -5.times { do_something }
+# 0.times { do_something }
+# 1.times { do_something  }
+# 1.times { |i| do_something(i) }
+#
+# # good
+# do_something
+# do_something(1)
+Lint/UselessTimes: # (new in 0.91)
+  Enabled: true
+
+# This cop checks for grouping of accessors in class and module bodies.
+# By default it enforces accessors to be placed in grouped declarations, but
+#it can be configured to enforce separating them in multiple declarations.
+Style/AccessorGrouping: # (new in 0.87)
+  Enabled: true
+
+# This cop checks for places where attr_reader and attr_writer for the same
+# method can be combined into single attr_accessor.
+# Examples
+# # bad
+# class Foo
+#   attr_reader :bar
+#   attr_writer :bar
+# end
+#
+# # good
+# class Foo
+#   attr_accessor :bar
+# end
+Style/BisectedAttrAccessor: # (new in 0.87)
+  Enabled: true
+
+# This cop identifies places where if-elsif constructions can be replaced with
+# case-when.
+# Examples
+# # bad
+# if status == :active
+#   perform_action
+# elsif status == :inactive || status == :hibernating
+#   check_timeout
+# else
+#   final_action
+# end
+#
+# # good
+# case status
+# when :active
+#   perform_action
+# when :inactive, :hibernating
+#   check_timeout
+# else
+#   final_action
+# end
+Style/CaseLikeIf: # (new in 0.88)
+  Enabled: true
+
+# This cop checks for places where multiple consecutive loops over the same
+# data can be combined into a single loop. It is very likely that combining
+# them will make the code more efficient and more concise.
+# It is marked as unsafe, because the first loop might modify a state that
+# the second loop depends on; these two aren’t combinable.
+# Examples
+# # bad
+# def method
+#   items.each do |item|
+#     do_something(item)
+#   end
+#
+#   items.each do |item|
+#     do_something_else(item)
+#   end
+# end
+#
+# # good
+# def method
+#   items.each do |item|
+#     do_something(item)
+#     do_something_else(item)
+#   end
+# end
+#
+# # bad
+# def method
+#   for item in items do
+#     do_something(item)
+#   end
+#
+#   for item in items do
+#     do_something_else(item)
+#   end
+# end
+#
+# # good
+# def method
+#   for item in items do
+#     do_something(item)
+#     do_something_else(item)
+#   end
+# end
+#
+# # good
+# def method
+#   each_slice(2) { |slice| do_something(slice) }
+#   each_slice(3) { |slice| do_something(slice) }
+# end
+Style/CombinableLoops: # (new in 0.90)
+  Enabled: true
+
+# This cop enforces the use of explicit block argument to avoid writing block
+# literal that just passes its arguments to another block.
+# Examples
+# # bad
+# def with_tmp_dir
+#   Dir.mktmpdir do |tmp_dir|
+#     Dir.chdir(tmp_dir) { |dir| yield dir } # block just passes arguments
+#   end
+# end
+#
+# # bad
+# def nine_times
+#   9.times { yield }
+# end
+#
+# # good
+# def with_tmp_dir(&block)
+#   Dir.mktmpdir do |tmp_dir|
+#     Dir.chdir(tmp_dir, &block)
+#   end
+# end
+#
+# with_tmp_dir do |dir|
+#   puts "dir is accessible as a parameter and pwd is set: #{dir}"
+# end
+#
+# # good
+# def nine_times(&block)
+#   9.times(&block)
+# end
+Style/ExplicitBlockArgument: # (new in 0.89)
+  Enabled: true
+
+# This cop enforces the use of $stdout/$stderr/$stdin instead of
+# STDOUT/STDERR/STDIN. STDOUT/STDERR/STDIN are constants, and while you can
+# actually reassign (possibly to redirect some stream) constants in Ruby,
+# you’ll get an interpreter warning if you do so.
+# Examples
+# # bad
+# STDOUT.puts('hello')
+#
+# hash = { out: STDOUT, key: value }
+#
+# def m(out = STDOUT)
+#   out.puts('hello')
+# end
+#
+# # good
+# $stdout.puts('hello')
+#
+# hash = { out: $stdout, key: value }
+#
+# def m(out = $stdout)
+#   out.puts('hello')
+# end
+Style/GlobalStdStream: # (new in 0.89)
+  Enabled: true
+
+# Checks for presence or absence of braces around hash literal as a last array
+# item depending on configuration.
+# This cop will ignore arrays where all items are hashes, regardless of EnforcedStyle.
+# Examples
+# EnforcedStyle: braces (default)
+# # bad
+# [1, 2, one: 1, two: 2]
+#
+# # good
+# [1, 2, { one: 1, two: 2 }]
+#
+# # good
+# [{ one: 1 }, { two: 2 }]
+Style/HashAsLastArrayItem: # (new in 0.88)
+  Enabled: true
+
+# This cop checks for uses of each_key and each_value Hash methods.
+# If you have an array of two-element arrays, you can put parentheses around
+# the block arguments to indicate that you’re not working with a hash, and
+# suppress RuboCop offenses.
+# Examples
+# # bad
+# hash.keys.each { |k| p k }
+# hash.values.each { |v| p v }
+#
+# # good
+# hash.each_key { |k| p k }
+# hash.each_value { |v| p v }
+Style/HashEachMethods: # (new in 0.80)
+  Enabled: true
+
+# This cop checks for places where case-when represents a simple 1:1 mapping
+# and can be replaced with a hash lookup.
+# Examples
+# MinBranchesCount: 3 (default)
+# # bad
+# case country
+# when 'europe'
+#   'http://eu.example.com'
+# when 'america'
+#   'http://us.example.com'
+# when 'australia'
+#   'http://au.example.com'
+# end
+#
+# # good
+# SITES = {
+#   'europe'    => 'http://eu.example.com',
+#   'america'   => 'http://us.example.com',
+#   'australia' => 'http://au.example.com'
+# }
+# SITES[country]
+Style/HashLikeCase: # (new in 0.88)
+  Enabled: true
+
+# This cop looks for uses of .each_with_object({}) {…​}, .map {…​}.to_h,
+# and Hash[_.map {…​}] that are actually just transforming the keys of a hash,
+# and tries to use a simpler & faster call to transform_keys instead.
+# This can produce false positives if we are transforming an enumerable of
+# key-value-like pairs that isn’t actually a hash, e.g.: [[k1, v1], [k2, v2], …​]
+# This cop should only be enabled on Ruby version 2.5 or newer (transform_keys
+# was added in Ruby 2.5.)
+# Examples
+# # bad
+# {a: 1, b: 2}.each_with_object({}) { |(k, v), h| h[foo(k)] = v }
+# Hash[{a: 1, b: 2}.collect { |k, v| [foo(k), v] }]
+# {a: 1, b: 2}.map { |k, v| [k.to_s, v] }.to_h
+# {a: 1, b: 2}.to_h { |k, v| [k.to_s, v] }
+#
+# # good
+# {a: 1, b: 2}.transform_keys { |k| foo(k) }
+# {a: 1, b: 2}.transform_keys { |k| k.to_s }
+Style/HashTransformKeys: # (new in 0.80)
+  Enabled: true
+
+# This cop looks for uses of .each_with_object({}) {…​}, .map {…​}.to_h,
+# and Hash[_.map {…​}] that are actually just transforming the values of a hash,
+# and tries to use a simpler & faster call to transform_values instead.
+# This can produce false positives if we are transforming an enumerable of
+# key-value-like pairs that isn’t actually a hash, e.g.: [[k1, v1], [k2, v2], …​]
+# This cop should only be enabled on Ruby version 2.4 or newer (transform_values
+# was added in Ruby 2.4.)
+# Examples
+# # bad
+# {a: 1, b: 2}.each_with_object({}) { |(k, v), h| h[k] = foo(v) }
+# Hash[{a: 1, b: 2}.collect { |k, v| [k, foo(v)] }]
+# {a: 1, b: 2}.map { |k, v| [k, v * v] }.to_h
+# {a: 1, b: 2}.to_h { |k, v| [k, v * v] }
+#
+# # good
+# {a: 1, b: 2}.transform_values { |v| foo(v) }
+# {a: 1, b: 2}.transform_values { |v| v * v }
+Style/HashTransformValues: # (new in 0.80)
+  Enabled: true
+
+# This cop enforces that optional keyword parameters are placed at the end of the
+# parameters list.
+# This improves readability, because when looking through the source, it is
+# expected to find required parameters at the beginning of parameters list and
+# optional parameters at the end.
+# Examples
+# # bad
+# def some_method(first: false, second:, third: 10)
+#   # body omitted
+# end
+#
+# # good
+# def some_method(second:, first: false, third: 10)
+#   # body omitted
+# end
+Style/KeywordParametersOrder: # (new in 0.90)
+  Enabled: true
+
+# This cop checks for places where keyword arguments can be used instead of boolean arguments when defining methods. respond_to_missing? method is allowed by default. These are customizable with AllowedMethods option.
+# Examples
+# # bad
+# def some_method(bar = false)
+#   puts bar
+# end
+#
+# # bad - common hack before keyword args were introduced
+# def some_method(options = {})
+#   bar = options.fetch(:bar, false)
+#   puts bar
+# end
+#
+# # good
+# def some_method(bar: false)
+#   puts bar
+# end
+Style/OptionalBooleanParameter: # (new in 0.89)
+  Enabled: true
+
+# This cop checks for redundant assignment before returning.
+# Examples
+# # bad
+# def test
+#   x = foo
+#   x
+# end
+#
+# # bad
+# def test
+#   if x
+#     z = foo
+#     z
+#   elsif y
+#     z = bar
+#     z
+#   end
+# end
+#
+# # good
+# def test
+#   foo
+# end
+#
+# # good
+# def test
+#   if x
+#     foo
+#   elsif y
+#     bar
+#   end
+# end
+Style/RedundantAssignment: # (new in 0.87)
+  Enabled: true
+
+# This cop identifies places where fetch(key) { value } can be replaced by
+# fetch(key, value).
+# In such cases fetch(key, value) method is faster than fetch(key) { value }.
+# Examples
+# SafeForConstants: false (default)
+# # bad
+# hash.fetch(:key) { 5 }
+# hash.fetch(:key) { true }
+# hash.fetch(:key) { nil }
+# array.fetch(5) { :value }
+# ENV.fetch(:key) { 'value' }
+#
+# # good
+# hash.fetch(:key, 5)
+# hash.fetch(:key, true)
+# hash.fetch(:key, nil)
+# array.fetch(5, :value)
+# ENV.fetch(:key, 'value'
+Style/RedundantFetchBlock: # (new in 0.86)
+  Enabled: true
+
+# This cop checks for the presence of superfluous .rb extension in the filename
+# provided to require and require_relative.
+#
+# Note: If the extension is omitted, Ruby tries adding '.rb', '.so', and so
+# on to the name until found. If the file named cannot be found, a LoadError
+# will be raised. There is an edge case where foo.so file is loaded instead of
+# a LoadError if foo.so file exists when require 'foo.rb' will be changed to
+# require 'foo', but that seems harmless.
+#
+# Examples
+# # bad
+# require 'foo.rb'
+# require_relative '../foo.rb'
+#
+# # good
+# require 'foo'
+# require 'foo.so'
+# require_relative '../foo'
+# require_relative '../foo.so'
+Style/RedundantFileExtensionInRequire: # (new in 0.88)
+  Enabled: true
+
+# This cop checks for unnecessary single-element Regexp character classes.
+# Examples
+# # bad
+# r = /[x]/
+#
+# # good
+# r = /x/
+#
+# # bad
+# r = /[\s]/
+#
+# # good
+# r = /\s/
+#
+# # bad
+# r = %r{/[b]}
+#
+# # good
+# r = %r{/b}
+#
+# # good
+# r = /[ab]/
+Style/RedundantRegexpCharacterClass: # (new in 0.85)
+  Enabled: true
+
+# This cop checks for redundant escapes inside Regexp literals.
+# Examples
+# # bad
+# %r{foo\/bar}
+#
+# # good
+# %r{foo/bar}
+#
+# # good
+# /foo\/bar/
+#
+# # good
+# %r/foo\/bar/
+#
+# # good
+# %r!foo\!bar!
+#
+# # bad
+# /a\-b/
+#
+# # good
+# /a-b/
+#
+# # bad
+# /[\+\-]\d/
+#
+# # good
+# /[+\-]\d/
+Style/RedundantRegexpEscape: # (new in 0.85)
+  Enabled: true
+
+# This cop checks for places where redundant assignments are made for in place
+# modification methods.
+# This cop is marked as unsafe, because it can produce false positives for user
+# defined methods having one of the expected names, but not modifying its
+# receiver in place.
+#
+# Examples
+# # bad
+# args = args.concat(ary)
+# hash = hash.merge!(other)
+#
+# # good
+# args.concat(foo)
+# args += foo
+# hash.merge!(other)
+#
+# # bad
+# self.foo = foo.concat(ary)
+#
+# # good
+# foo.concat(ary)
+# self.foo += ary
+Style/RedundantSelfAssignment: # (new in 0.90)
+  Enabled: true
+
+# Sometimes using dig method ends up with just a single argument. In such cases,
+# dig should be replaced with [].
+# Examples
+# # bad
+# { key: 'value' }.dig(:key)
+# [1, 2, 3].dig(0)
+#
+# # good
+# { key: 'value' }[:key]
+# [1, 2, 3][0]
+#
+# # good
+# { key1: { key2: 'value' } }.dig(:key1, :key2)
+# [1, [2, [3]]].dig(1, 1)
+#
+# # good
+# keys = %i[key1 key2]
+# { key1: { key2: 'value' } }.dig(*keys)
+Style/SingleArgumentDig: # (new in 0.89)
+  Enabled: true
+
+# If the branch of a conditional consists solely of a conditional node, its
+# conditions can be combined with the conditions of the outer branch. This helps
+# to keep the nesting level from getting too deep.
+#
+# Examples
+# # bad
+# if condition_a
+#   if condition_b
+#     do_something
+#   end
+# end
+#
+# # good
+# if condition_a && condition_b
+#   do_something
+# end
+Style/SoleNestedConditional: # (new in 0.89)
+  Enabled: true
+
+# This cop checks for places where string concatenation can be replaced with
+# string interpolation.
+# The cop can autocorrect simple cases but will skip autocorrecting more complex
+# cases where the resulting code would be harder to read. In those cases, it
+# might be useful to extract statements to local variables or methods which you
+# can then interpolate in a string.
+#
+# Examples
+# # bad
+# email_with_name = user.name + ' <' + user.email + '>'
+#
+# # good
+# email_with_name = "#{user.name} <#{user.email}>"
+# email_with_name = format('%s <%s>', user.name, user.email)
+Style/StringConcatenation: # (new in 0.89)
+  Enabled: true
+
+# This cop is designed to help you transition from mutable string literals to
+# frozen string literals. It will add the comment # frozen_string_literal: true
+# to the top of files to enable frozen string literals. Frozen string literals
+# may be default in future Ruby. The comment will be added below a shebang
+# and encoding comment.
+# Note that the cop will ignore files where the comment exists but is set to
+# false instead of true.
+Style/FrozenStringLiteralComment:
+  Enabled: false
