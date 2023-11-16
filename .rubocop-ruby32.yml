@@ -1,0 +1,26 @@
+require:
+  - rubocop-performance
+
+AllCops:
+  NewCops: enable
+  TargetRubyVersion: 3.2
+  Exclude:
+    - 'db/**/*'
+
+Gemspec/RequireMFA:
+  Enabled: false
+
+Layout/ArgumentAlignment:
+  EnforcedStyle: with_fixed_indentation
+
+Layout/EndAlignment:
+  EnforcedStyleAlignWith: start_of_line
+
+Layout/ExtraSpacing:
+  AllowForAlignment: false
+
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+
+Naming/VariableNumber:
+  EnforcedStyle: snake_case # to cater for existing style
