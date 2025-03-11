@@ -10,7 +10,7 @@ AllCops:
   ExtraDetails: true
   UseCache: true
   MaxFilesInCache: 50000
-  TargetRubyVersion: 2.4
+  TargetRubyVersion: 2.7
   TargetRailsVersion: 4.2
 
 #################### Style ################################
